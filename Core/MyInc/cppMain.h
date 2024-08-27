@@ -20,10 +20,15 @@ enum Status {
 #include <cstring>
 #include <Thread.h>
 #include <Logger.h>
+#include <Allocator.h>
+#include <AllocatorTest.h>
 #include <TaskConfig.h>
 #include <MonitorTask.h>
 #include <LoggerTask.h>
 #include <BlinkTask.h>
+#include <AllocatorTask.h>
+
+#include <cassert>
 
 extern Tasks::LoggerTask* logger_task;
 

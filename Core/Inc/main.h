@@ -39,6 +39,7 @@ extern "C" {
 #include "timers.h"
 #include "stdarg.h"
 #include "stdio.h"
+#include <stdlib.h>
 #include <cppMain.h>
 
 extern UART_HandleTypeDef huart2;

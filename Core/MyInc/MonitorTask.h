@@ -9,6 +9,7 @@
 #define MYINC_MONITORTASK_H_
 
 #include <cppMain.h>
+#include <Allocator.h>
 
 #ifdef __cplusplus
 
@@ -31,7 +32,6 @@ private:
 	char _task_state_to_char(eTaskState state);
 	void _sort_tasks_by_number(TaskStatus_t *status, UBaseType_t count);
 	Logger _logger;
-
 };
 
 } /* namespace Tasks */

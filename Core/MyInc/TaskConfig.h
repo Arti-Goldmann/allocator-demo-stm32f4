@@ -42,6 +42,13 @@ namespace config {
 		static constexpr uint32_t SLEEP_TIME_MS 	= 0;
 	};
 
+	struct AllocatorTask {
+		static constexpr uint32_t STACK_SIZE 		= MIN_TASK_STACK_SIZE * 5;
+		static constexpr const char NAME[]   		= "Allocator Task";
+		static constexpr uint32_t PRIORITY   		= MIN_TASK_PRIORITY;
+		static constexpr uint32_t SLEEP_TIME_MS 	= 500;
+	};
+
 }	/* namespace config */
 
 }	/* namespace Tasks */

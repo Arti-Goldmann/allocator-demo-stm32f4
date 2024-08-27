@@ -43,12 +43,14 @@ void cppMain(){
 	auto monitor_task = new Tasks::MonitorTask(&htim2);
 	auto blink_task = new Tasks::BlinkTask();
 	auto logger_task = new Tasks::LoggerTask(&huart2);
+	auto allocator_task = new Tasks::AllocatorTask();
 
     vTaskStartScheduler();
 
     delete monitor_task;
     delete blink_task;
     delete logger_task;
+    delete allocator_task;
 
     while(1){
 

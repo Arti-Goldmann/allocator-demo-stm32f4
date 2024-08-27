@@ -13,6 +13,7 @@ namespace config {
 constexpr const char MonitorTask::NAME[];
 constexpr const char BlinkTask::NAME[];
 constexpr const char LoggerTask::NAME[];
+constexpr const char AllocatorTask::NAME[];
 
 } /* namespace config */
 
