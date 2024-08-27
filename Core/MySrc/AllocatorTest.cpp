@@ -9,20 +9,20 @@ void Test_max_alloc(Allocator& allocator, size_t& alloc_chunks_counter, char** a
 		//Проверим выделенный адрес
 		size_t start_adress = allocator.get_heap_start_adress();
 		size_t expected_adress = start_adress + Allocator::CHUNK_INFO_BYTES + alloc_chunks_counter * Allocator::TOTAL_CHUNK_BYTES;
-		assert(expected_adress == (size_t)tmp);
+		assert_param(expected_adress == (size_t)tmp);
 
 		allocated[alloc_chunks_counter] = tmp;
 		alloc_chunks_counter++;
 
 		//Проверим, что кол-во свободных и выделенных блоков сходится
-		assert(alloc_chunks_counter == allocator.get_chunks_num_in_use());
-		assert((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
+		assert_param(alloc_chunks_counter == allocator.get_chunks_num_in_use());
+		assert_param((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
 	}
 
 	//Проверим, что если попытаемся выделить еще блок, то получим NULL
-	assert((char*)allocator.m_alloc_chunk() == NULL);
+	assert_param((char*)allocator.m_alloc_chunk() == NULL);
 	//Проверим, что в списке свободных блоков нет
-	assert(allocator.get_size_of_free_list() == 0);
+	assert_param(allocator.get_size_of_free_list() == 0);
 }
 
 void Test_alloc_and_free(Allocator& allocator, const char* test_name, IndexDir start_index){
@@ -49,15 +49,15 @@ void Test_alloc_and_free(Allocator& allocator, const char* test_name, IndexDir s
 		alloc_chunks_counter--;
 
 		//Проверим, что кол-во свободных и выделенных блоков сходится
-		assert(alloc_chunks_counter == allocator.get_chunks_num_in_use());
-		assert((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
+		assert_param(alloc_chunks_counter == allocator.get_chunks_num_in_use());
+		assert_param((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
 		//Проверим, что всего только одна непрерывная свободная область памяти
-		assert(allocator.get_size_of_free_list() == 1);
+		assert_param(allocator.get_size_of_free_list() == 1);
 	}
 
 	//Вся память должна быть освобождена
-	assert(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
-	assert(allocator.get_chunks_num_in_use() == 0);
+	assert_param(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
+	assert_param(allocator.get_chunks_num_in_use() == 0);
 
 	//std::cout << test_name <<" passed" << std::endl;
 }
@@ -111,17 +111,17 @@ void Test_alloc_and_free_through_one(Allocator& allocator, const char* test_name
 				if(expected_size_of_list < 1) expected_size_of_list = 1;
 			}
 
-			assert(expected_size_of_list == allocator.get_size_of_free_list());
+			assert_param(expected_size_of_list == allocator.get_size_of_free_list());
 
 			//Проверим, что кол-во свободных и выделенных блоков сходится
-			assert(alloc_chunks_counter == allocator.get_chunks_num_in_use());
-			assert((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
+			assert_param(alloc_chunks_counter == allocator.get_chunks_num_in_use());
+			assert_param((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
 		}
 	}    
 
 	//Вся память должна быть освобождена
-	assert(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
-	assert(allocator.get_chunks_num_in_use() == 0);
+	assert_param(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
+	assert_param(allocator.get_chunks_num_in_use() == 0);
 
 	//std::cout << test_name <<" passed" << std::endl;
 }
@@ -181,18 +181,18 @@ void Test_alloc_and_free_through_one_v2(Allocator& allocator, const char* test_n
 				alloc_chunks_counter++;
 			}
 
-			assert(expected_size_of_list == allocator.get_size_of_free_list());
+			assert_param(expected_size_of_list == allocator.get_size_of_free_list());
 
 			//Проверим, что кол-во свободных и выделенных блоков сходится
-			assert(alloc_chunks_counter == allocator.get_chunks_num_in_use());
-			assert((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
+			assert_param(alloc_chunks_counter == allocator.get_chunks_num_in_use());
+			assert_param((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
 		}
 	}
 
 	//Проверим, что если попытаемся выделить еще блок, то получим NULL
-	assert((char*)allocator.m_alloc_chunk() == NULL);
+	assert_param((char*)allocator.m_alloc_chunk() == NULL);
 	//Проверим, что в списке свободных блоков нет
-	assert(allocator.get_size_of_free_list() == 0);
+	assert_param(allocator.get_size_of_free_list() == 0);
 
 	//Освободим все блоки
 	//Будем освобождать с начала или с конца
@@ -208,15 +208,15 @@ void Test_alloc_and_free_through_one_v2(Allocator& allocator, const char* test_n
 		alloc_chunks_counter--;
 
 		//Проверим, что кол-во свободных и выделенных блоков сходится
-		assert(alloc_chunks_counter == allocator.get_chunks_num_in_use());
-		assert((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
+		assert_param(alloc_chunks_counter == allocator.get_chunks_num_in_use());
+		assert_param((allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES - alloc_chunks_counter) == allocator.get_free_chunks_num());
 		//Проверим, что всего только одна непрерывная свободная область памяти
-		assert(allocator.get_size_of_free_list() == 1);
+		assert_param(allocator.get_size_of_free_list() == 1);
 	}
 
 	//Вся память должна быть освобождена
-	assert(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
-	assert(allocator.get_chunks_num_in_use() == 0);
+	assert_param(allocator.get_total_heap_size() / Allocator::TOTAL_CHUNK_BYTES == allocator.get_free_chunks_num());
+	assert_param(allocator.get_chunks_num_in_use() == 0);
 
 	//std::cout << test_name <<" passed" << std::endl;
 }
